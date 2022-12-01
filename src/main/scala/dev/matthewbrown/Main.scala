@@ -7,19 +7,6 @@ import dev.matthewbrown.days.*
 
 object Main extends IOApp.Simple {
 
-//  def run: IO[Unit] =
-//    IO {
-//      val i = input.linesIterator.foldLeft(NonEmptyList.one(0)){ (acc, next) =>
-//        next match
-//          case "" => acc.prepend(0)
-//          case integer =>
-//            val int = integer.toInt
-//            NonEmptyList(int + acc.head, acc.tail)
-//
-//      }.sorted.reverse.take(3).sum
-//      println(i)
-//    }
-
     override def run: IO[Unit] = {
       val day: Day = Day1
       for {
@@ -30,6 +17,5 @@ object Main extends IOApp.Simple {
         _ <- IO.println(s"Day ${day.day}, Part 2: $pt2")
       } yield ()
     }
-
     
 }
