@@ -26,7 +26,8 @@ trait BasicDay extends Day {
   override def solve1: IO[String] =
     for {
       strs <- read.compile.toVector
-      parsed <- parse(strs)
+      sanitised = if (strs.last.isEmpty) strs.init else strs
+      parsed <- parse(sanitised)
       answer <- solve1Impl(parsed)
     } yield answer
 
@@ -35,7 +36,8 @@ trait BasicDay extends Day {
   override def solve2: IO[String] =
     for {
       strs <- read.compile.toVector
-      parsed <- parse(strs)
+      sanitised = if (strs.last.isEmpty) strs.init else strs
+      parsed <- parse(sanitised)
       answer <- solve2Impl(parsed)
     } yield answer
 
@@ -43,4 +45,39 @@ trait BasicDay extends Day {
 
 }
 
-case class InvalidInput(reason: String, line: String) extends NoStackTrace
+trait DayWithDifferentParsing extends Day {
+
+  val day: Int
+
+  type Input1
+  type Input2
+
+  final def read: fs2.Stream[IO, String] = Utils.readLines("Day" + day.toString + ".txt")
+
+  def parse1(strs: Vector[String]): IO[Input1]
+  def parse2(strs: Vector[String]): IO[Input2]
+
+  override def solve1: IO[String] =
+    for {
+      strs <- read.compile.toVector
+      sanitised = if (strs.last.isEmpty) strs.init else strs
+      parsed <- parse1(sanitised)
+      answer <- solve1Impl(parsed)
+    } yield answer
+
+  def solve1Impl(input: Input1): IO[String]
+
+  override def solve2: IO[String] =
+    for {
+      strs <- read.compile.toVector
+      sanitised = if (strs.last.isEmpty) strs.init else strs
+      parsed <- parse2(sanitised)
+      answer <- solve2Impl(parsed)
+    } yield answer
+
+  def solve2Impl(input: Input2): IO[String]
+
+}
+
+case class InvalidInput(reason: String, line: String) extends NoStackTrace:
+  override def getMessage: String = s"$reason ($line)"
