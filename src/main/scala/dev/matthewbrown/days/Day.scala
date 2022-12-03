@@ -8,9 +8,9 @@ import scala.util.control.NoStackTrace
 trait Day {
   def day: Int
 
-  def solve1: IO[String] = ???
+  def solve1: IO[Any] = ???
 
-  def solve2: IO[String] = ???
+  def solve2: IO[Any] = ???
 }
 
 trait BasicDay extends Day {
@@ -23,7 +23,7 @@ trait BasicDay extends Day {
 
   def parse(strs: Vector[String]): IO[Input]
 
-  override def solve1: IO[String] =
+  override def solve1: IO[Any] =
     for {
       strs <- read.compile.toVector
       sanitised = if (strs.last.isEmpty) strs.init else strs
@@ -33,7 +33,7 @@ trait BasicDay extends Day {
 
   def solve1Impl(input: Input): IO[String]
 
-  override def solve2: IO[String] =
+  override def solve2: IO[Any] =
     for {
       strs <- read.compile.toVector
       sanitised = if (strs.last.isEmpty) strs.init else strs
@@ -57,7 +57,7 @@ trait DayWithDifferentParsing extends Day {
   def parse1(strs: Vector[String]): IO[Input1]
   def parse2(strs: Vector[String]): IO[Input2]
 
-  override def solve1: IO[String] =
+  override def solve1: IO[Any] =
     for {
       strs <- read.compile.toVector
       sanitised = if (strs.last.isEmpty) strs.init else strs
@@ -65,9 +65,9 @@ trait DayWithDifferentParsing extends Day {
       answer <- solve1Impl(parsed)
     } yield answer
 
-  def solve1Impl(input: Input1): IO[String]
+  def solve1Impl(input: Input1): IO[Any]
 
-  override def solve2: IO[String] =
+  override def solve2: IO[Any] =
     for {
       strs <- read.compile.toVector
       sanitised = if (strs.last.isEmpty) strs.init else strs
@@ -75,7 +75,7 @@ trait DayWithDifferentParsing extends Day {
       answer <- solve2Impl(parsed)
     } yield answer
 
-  def solve2Impl(input: Input2): IO[String]
+  def solve2Impl(input: Input2): IO[Any]
 
 }
 
