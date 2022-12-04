@@ -31,7 +31,7 @@ trait BasicDay extends Day {
       answer <- solve1Impl(parsed)
     } yield answer
 
-  def solve1Impl(input: Input): IO[String]
+  def solve1Impl(input: Input): IO[Any]
 
   override def solve2: IO[Any] =
     for {
@@ -41,7 +41,7 @@ trait BasicDay extends Day {
       answer <- solve2Impl(parsed)
     } yield answer
 
-  def solve2Impl(input: Input): IO[String]
+  def solve2Impl(input: Input): IO[Any]
 
 }
 
