@@ -13,5 +13,7 @@ object Utils {
       .readAll(Path(s"src/main/resources/" + path))
       .through(text.utf8.decode)
       .through(text.lines)
-      .map(_.trim)
+    
+  object IntExtractor:
+    def unapply(str: String): Option[Int] = str.toIntOption
 }
