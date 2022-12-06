@@ -8,7 +8,7 @@ import dev.matthewbrown.days.*
 object Main extends IOApp.Simple {
 
     override def run: IO[Unit] = {
-      val day: Day = Day5
+      val day: Day = Day6
       for {
         _ <- IO.println("Hello, World!")
         pt1 <- day.solve1
