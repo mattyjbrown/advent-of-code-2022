@@ -4,6 +4,7 @@ import cats.data.NonEmptyList
 import cats.effect.IO
 
 object Day3 extends DayWithDifferentParsing {
+  override val day: Int = 3
 
   case class Rucksack(first: String, second: String)
 
@@ -14,8 +15,6 @@ object Day3 extends DayWithDifferentParsing {
       if c.isUpper then c - 38
       else if c.isLower then c - 96
       else throw InvalidInput("Is not a letter", c.toString)
-
-  override val day: Int = 3
 
   override type Input1 = Vector[Rucksack]
   override type Input2 = Vector[(Rucksack, Rucksack, Rucksack)]

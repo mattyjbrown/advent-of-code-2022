@@ -8,6 +8,8 @@ import dev.matthewbrown.days.Day7.Line.{Command, Output}
 import dev.matthewbrown.days.Day7.Line.Command.CDTarget
 
 object Day7 extends BasicDay {
+  override val day: Int = 7
+
   sealed trait Line
 
   object Line {
@@ -78,7 +80,6 @@ object Day7 extends BasicDay {
       case Line.Output.FSObject.File(size, name) => copy(files :+ File(NonEmptyList(name, location), size))
   }
 
-  override val day: Int = 7
   override type Input = List[File]
 
   extension (files: List[File]) {

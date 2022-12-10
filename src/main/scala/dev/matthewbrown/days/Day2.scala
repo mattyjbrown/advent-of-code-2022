@@ -5,6 +5,8 @@ import cats.effect.IO
 import dev.matthewbrown.days.Day2.Choice.{Rock, Scissors}
 
 object Day2 extends DayWithDifferentParsing {
+  override val day: Int = 2
+  
   enum Outcome(val points: Int):
     case Win extends Outcome(6)
     case Lose extends Outcome(0)
@@ -50,8 +52,6 @@ object Day2 extends DayWithDifferentParsing {
       case _ => None
     def unapply(char: Char): Option[Choice] = parse(char.toString)
   end Choice
-
-  override val day: Int = 2
 
   override type Input1 = Vector[(Choice, Choice)]
   override type Input2 = Vector[(Choice, Outcome)]
