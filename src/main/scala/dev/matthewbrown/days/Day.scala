@@ -26,7 +26,7 @@ trait BasicDay extends Day {
   override def solve1: IO[Any] =
     for {
       strs <- read.compile.toVector
-      sanitised = if (strs.last.isEmpty) strs.init else strs
+      sanitised = if strs.lastOption.exists(_.isEmpty) then strs.init else strs
       parsed <- parse(sanitised)
       answer <- solve1Impl(parsed)
     } yield answer
@@ -36,7 +36,7 @@ trait BasicDay extends Day {
   override def solve2: IO[Any] =
     for {
       strs <- read.compile.toVector
-      sanitised = if (strs.last.isEmpty) strs.init else strs
+      sanitised = if strs.lastOption.exists(_.isEmpty) then strs.init else strs
       parsed <- parse(sanitised)
       answer <- solve2Impl(parsed)
     } yield answer
@@ -60,7 +60,7 @@ trait DayWithDifferentParsing extends Day {
   override def solve1: IO[Any] =
     for {
       strs <- read.compile.toVector
-      sanitised = if (strs.last.isEmpty) strs.init else strs
+      sanitised = if strs.lastOption.exists(_.isEmpty) then strs.init else strs
       parsed <- parse1(sanitised)
       answer <- solve1Impl(parsed)
     } yield answer
@@ -70,7 +70,7 @@ trait DayWithDifferentParsing extends Day {
   override def solve2: IO[Any] =
     for {
       strs <- read.compile.toVector
-      sanitised = if (strs.last.isEmpty) strs.init else strs
+      sanitised = if strs.lastOption.exists(_.isEmpty) then strs.init else strs
       parsed <- parse2(sanitised)
       answer <- solve2Impl(parsed)
     } yield answer
