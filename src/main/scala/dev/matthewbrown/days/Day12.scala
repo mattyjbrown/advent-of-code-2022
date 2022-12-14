@@ -83,7 +83,7 @@ object Day12 extends BasicDay {
   /**
    * Let's try a different approach.
    * Start at the end.
-   * Each step, get the valids, measure
+   * Each step, get the valids, filter out previously visited, if you aren't at the floor, take the next step
    */
   override def solve2Impl(input: Input): IO[Any] = IO {
     var steps: Int = 0
@@ -94,9 +94,9 @@ object Day12 extends BasicDay {
       steps = steps + 1
       val nextPossibilities: Set[Cell] = gotTo.flatMap(current => current.neighbours
         .filter(neighbour => neighbour.x >= 0 && neighbour.y >= 0 && neighbour.x < input.grid.size && neighbour.y < input.grid.head.size)
-        .filterNot(visited)
         .filter(neighbour => input.at(current) - input.at(neighbour) <= 1)
-        )
+        .filterNot(visited)
+      )
       if nextPossibilities.exists(c => input.at(c) == 'a')
       then done = true
       else
@@ -118,8 +118,8 @@ object Day12 extends BasicDay {
       steps = steps + 1
       val nextPossibilities: Set[Cell] = gotTo.flatMap(current => current.neighbours
         .filter(neighbour => neighbour.x >= 0 && neighbour.y >= 0 && neighbour.x < input.grid.size && neighbour.y < input.grid.head.size)
-        .filterNot(visited)
         .filter(neighbour => input.at(neighbour) - input.at(current)<= 1)
+        .filterNot(visited)
       )
       if nextPossibilities.contains(input.end)
       then done = true
